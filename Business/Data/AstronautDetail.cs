@@ -19,7 +19,7 @@ namespace StargateAPI.Business.Data
 
         public DateTime? CareerEndDate { get; set; }
 
-        public virtual Person Person { get; set; }
+        public virtual Person Person { get; set; } = new Person();
     }
 
     public class AstronautDetailConfiguration : IEntityTypeConfiguration<AstronautDetail>
@@ -28,6 +28,11 @@ namespace StargateAPI.Business.Data
         {
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id).ValueGeneratedOnAdd();
+            // Configure the one-to-one relationship with Person
+            builder.HasOne(ad => ad.Person)
+                   .WithOne(p => p.AstronautDetail)
+                   .HasForeignKey<AstronautDetail>(ad => ad.PersonId)
+                   .IsRequired();
         }
     }
 }
