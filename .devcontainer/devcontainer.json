@@ -6,11 +6,16 @@
       "extensions": [
         "ms-dotnettools.csdevkit",
         "ms-dotnettools.vscodeintellicode-csharp",
-        "ms-dotnettools.vscode-dotnet-runtime"
+        "ms-dotnettools.vscode-dotnet-runtime",
+        "yzhang.markdown-all-in-one"
       ]
     }
   },
   "features": {
     "ghcr.io/devcontainers/features/node:1": {}
-  }
+  },
+  "mounts": [
+    "source=${localEnv:HOME}/.ssh,target=/home/vscode/.ssh,type=bind,readonly"
+  ],
+  "postCreateCommand": "dotnet tool install --global dotnet-ef"
 }

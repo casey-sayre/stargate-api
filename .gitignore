@@ -8,6 +8,9 @@ obj/
 *.userosscache
 *.sln.docstates
 
+# VS Code noise
+*.sln
+
 # VS Code settings
 .vscode/launch.json
 .vscode/tasks.json
