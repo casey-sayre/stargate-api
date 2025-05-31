@@ -56,6 +56,17 @@ namespace StargateAPI.Business.Commands
             var query = $"SELECT * FROM [Person] WHERE \'{request.Name}\' = Name";
 
             var person = await _context.Connection.QueryFirstOrDefaultAsync<Person>(query);
+            // if name not found, duty cannot be created, respond with null duty id
+            if (person is null)
+            {
+                // return Success false, name not found message, null Person property, empty Duties list if name not found
+                return new CreateAstronautDutyResult()
+                {
+                    Id = null,
+                    Success = false,
+                    Message = $"Person name '{request.Name}' not found.",
+                };
+            }
 
             query = $"SELECT * FROM [AstronautDetail] WHERE {person.Id} = PersonId";
 
