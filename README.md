@@ -48,6 +48,12 @@
    * Instancing lazy-loadable navigation objects in the default constructor of AstronautDetail and AstronautDuty was a blunder.
    * Changed approach to null-forgiving (!) operator.
 
+### Req 4: Retrieve Astronaut Duty by name.
+ * **Flaw**: Typo bug: AstronautDutyController.GetAstronautDutiesByName called `GetAstronautByName()`, changed to `GetAstronautDutiesByName()`.
+ * Suppress the null navigation property `Person` of the `AstronautDuty` object in the response.
+ * "by name" means "by Astronaut name."
+ * "Retrieve Astronaut Duty" means return the chronological list of duties for that Astronaut.
+
 
 
 
@@ -60,3 +66,5 @@ Q: is it a flaw to be unable to modify an existing Person?
 
 Q: why doesn't MediatR automatic registration work for the Preprocessors
 in namespace `StargateAPI.Business.Commands`
+
+Q: is it a flaw that the Astronaut Duties must be added in chronological order?
