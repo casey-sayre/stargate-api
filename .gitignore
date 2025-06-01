@@ -27,6 +27,8 @@ ScaffoldingReadMe.txt
 
 # Others
 *.db
+*.db-shm
+*.db-wal
 *.sqlite
 *.pdb
 *.cache
@@ -34,5 +36,5 @@ ScaffoldingReadMe.txt
 *.DS_Store
 Thumbs.db
 
-# Local environment files
-appsettings.Development.json
+# Local environment files -- NOTE included in exercise repo
+# appsettings.Development.json
