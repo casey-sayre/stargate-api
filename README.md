@@ -32,27 +32,44 @@
 * AstronautDuty added many-to-one relationship with person and fixed possible-null error with null forgiving operator (!).
 ## Check API Requirements (5)
 ### Req 3: Add/update a person by name.
-  * POST /Person with payload containing the Person's name was successful.
-  * **Flaw**: Adding the same name multiples succeeded.
-  * ~~Resolution: Added a Unique Index to PersonConfiguration and created a migration~~
-  * Resolution: configure the MediatR service to register CreatePersonPreProcessor for application level constraint.
+* POST /Person with payload containing the Person's name was successful.
+* **Flaw**: Adding the same name multiples succeeded.
+* ~~Resolution: Added a Unique Index to PersonConfiguration and created a migration~~
+* Resolution: configure the MediatR service to register CreatePersonPreProcessor for application level constraint.
 ### Req 2: Retrieve all people.
- * GET /Person was successful.
+* GET /Person was successful.
 
 ### Req 1: Retrieve a person by name.
- * GET /Person/{name} was successful.
+* GET /Person/{name} was successful.
 
 ### Req 5: Add an Astronaut Duty.
- * POST /AstronautDuty was successful.
- * There was a glitch from my earlier work on compiler warnings.
-   * Instancing lazy-loadable navigation objects in the default constructor of AstronautDetail and AstronautDuty was a blunder.
-   * Changed approach to null-forgiving (!) operator.
+* POST /AstronautDuty was successful.
+* There was a glitch from my earlier work on compiler warnings.
+  * Instancing lazy-loadable navigation objects in the default constructor of AstronautDetail and AstronautDuty was a blunder.
+  * Changed approach to null-forgiving (!) operator.
 
 ### Req 4: Retrieve Astronaut Duty by name.
- * **Flaw**: Typo bug: AstronautDutyController.GetAstronautDutiesByName called `GetAstronautByName()`, changed to `GetAstronautDutiesByName()`.
- * Suppress the null navigation property `Person` of the `AstronautDuty` object in the response.
- * "by name" means "by Astronaut name."
- * "Retrieve Astronaut Duty" means return the chronological list of duties for that Astronaut.
+* **Flaw**: Typo bug: AstronautDutyController.GetAstronautDutiesByName called `GetAstronautByName()`, changed to `GetAstronautDutiesByName()`.
+* Suppress the null navigation property `Person` of the `AstronautDuty` object in the response.
+* "by name" means "by Astronaut name."
+* "Retrieve Astronaut Duty" means return the chronological list of duties for that Astronaut.
+
+## Tasks
+
+### Task 1 Generate the database
+* done.
+
+### Task 2 Enforce the rules
+* done. spot check successful.
+
+### Task 3 Improve defensive coding
+* TODO
+
+### Task 4 Add unit tests
+* TODO
+
+### Task 5 Implement process logging
+* TODO
 
 
 
