@@ -28,11 +28,35 @@
 **Flaw**: There were six warnings reported by MSBuild. Changed code to fix them.
 * CreateAstronautDuty handler had a possible null Person (name not found). Return a result with Success false and desciptive Message.
 * GetAstronautDutiesByName handler had a possible null Person (name not found). Return a result with Success false and desciptive Message.
-* AstronautDetail added one-to-one relationship with person and fixed possible null Person property.
-* AstronautDuty added many-to-one relationship with person and fixed possible null Person property.
-## Check API Requirements
-* Req 3: Add/update a person by name.
+* AstronautDetail added one-to-one relationship with person and fixed possible-null error with null forgiving operator (!).
+* AstronautDuty added many-to-one relationship with person and fixed possible-null error with null forgiving operator (!).
+## Check API Requirements (5)
+### Req 3: Add/update a person by name.
   * POST /Person with payload containing the Person's name was successful.
   * **Flaw**: Adding the same name multiples succeeded.
   * ~~Resolution: Added a Unique Index to PersonConfiguration and created a migration~~
-  * Resolution: configure the Mediatr service to register CreatePersonPreProcessor for application level constraint.
+  * Resolution: configure the MediatR service to register CreatePersonPreProcessor for application level constraint.
+### Req 2: Retrieve all people.
+ * GET /Person was successful.
+
+### Req 1: Retrieve a person by name.
+ * GET /Person/{name} was successful.
+
+### Req 5: Add an Astronaut Duty.
+ * POST /AstronautDuty was successful.
+ * There was a glitch from my earlier work on compiler warnings.
+   * Instancing lazy-loadable navigation objects in the default constructor of AstronautDetail and AstronautDuty was a blunder.
+   * Changed approach to null-forgiving (!) operator.
+
+
+
+
+
+
+## Questions
+Q: what is significance of Person and AstronautDuty tables being maintained by external service?
+
+Q: is it a flaw to be unable to modify an existing Person?
+
+Q: why doesn't MediatR automatic registration work for the Preprocessors
+in namespace `StargateAPI.Business.Commands`
