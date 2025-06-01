@@ -14,19 +14,25 @@
 * Added `.vscode/launch-template.json` and `.vscode/tasks-template.json` to the repo for reference.
 * From devcontainer Terminal entered `dotnet dev-certs https --trust` to get past certificate issue.
 * Swagger renders successfully at `http://localhost:5204/swagger/index.html`.
-* Found issues in default application settings file `appsettings.json`.
+* **Flaw**: Found issues in default application settings file `appsettings.json`.
   * Removed the Development connection string. Moved to `appsettings.Development.json`.
   * Removed Development wildcard value from AllowedHosts. Moved to `appsettings.Development.json`.
 * Created database successfully from Terminal with `dotnet ef database update`.
 * Swagger GET PERSON succeeds with 0-length array of Person items.
-* Found that CORS is not set up.
+* **Flaw**: Found that CORS is not set up.
   * Added CORS middleware in `Program.cs`.
   * The CORS policy should be reviewed by the team.
   * Methods and Headers are not restricted unless specified in appSettings `AllowedMethods` and `AllowedHeaders`.
   * If AllowedHosts is not specified in the application settings, default setting is a single non-matching origin value to prevent all CORS.
 ### Examine Build Warnings
-There were six warnings reported by MSBuild. Changed code to fix them.
+**Flaw**: There were six warnings reported by MSBuild. Changed code to fix them.
 * CreateAstronautDuty handler had a possible null Person (name not found). Return a result with Success false and desciptive Message.
 * GetAstronautDutiesByName handler had a possible null Person (name not found). Return a result with Success false and desciptive Message.
 * AstronautDetail added one-to-one relationship with person and fixed possible null Person property.
 * AstronautDuty added many-to-one relationship with person and fixed possible null Person property.
+## Check API Requirements
+* Req 3: Add/update a person by name.
+  * POST /Person with payload containing the Person's name was successful.
+  * **Flaw**: Adding the same name multiples succeeded.
+  * ~~Resolution: Added a Unique Index to PersonConfiguration and created a migration~~
+  * Resolution: configure the Mediatr service to register CreatePersonPreProcessor for application level constraint.
